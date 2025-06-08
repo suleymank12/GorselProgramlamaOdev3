@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="GorselProgramlamaOdev3.Yapilacaklar"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Yapılacaklar"
+             x:Name="yapilacaklarPage">
+
+    <Grid>
+        <Grid.BackgroundColor>
+            <Binding Source="{x:Reference yapilacaklarPage}" Path="BindingContext.PageBackgroundColor"/>
+        </Grid.BackgroundColor>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Baş kısım -->
+        <StackLayout Grid.Row="0" 
+                     BackgroundColor="#6A1B9A" 
+                     Padding="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0"
+                       Text="Yapılacaklar" 
+                       TextColor="White" 
+                       FontSize="24" 
+                       FontAttributes="Bold"
+                       VerticalOptions="Center" />
+
+                <!-- buton ekle -->
+                <Button Grid.Column="1"
+                        x:Name="btnGorevEkle"
+                        Text="+"
+                        BackgroundColor="#4CAF50"
+                        TextColor="White"
+                        FontSize="24"
+                        FontAttributes="Bold"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        CornerRadius="25"
+                        Clicked="OnGorevEkleClicked" />
+            </Grid>
+        </StackLayout>
+    
+        <ScrollView Grid.Row="1">
+            <ScrollView.BackgroundColor>
+                <Binding Source="{x:Reference yapilacaklarPage}" Path="BindingContext.PageBackgroundColor"/>
+            </ScrollView.BackgroundColor>
+
+            <StackLayout Padding="15">
+
+                <!--bilgi -->
+                <Border Stroke="{Binding Source={x:Reference yapilacaklarPage}, Path=BindingContext.CardBorderColor}"
+                        StrokeThickness="1"
+                        Margin="0,10,0,20"
+                        Padding="20">
+                    <Border.BackgroundColor>
+                        <Binding Source="{x:Reference yapilacaklarPage}" Path="BindingContext.CardBackgroundColor"/>
+                    </Border.BackgroundColor>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12" />
+                    </Border.StrokeShape>
+                    
+                </Border>
+
+                <!--görevler kısmı -->
+                <CollectionView x:Name="gorevlerCollectionView"
+                                ItemsSource="{Binding Gorevler}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,5">
+                                <Border Stroke="{Binding Source={x:Reference yapilacaklarPage}, Path=BindingContext.CardBorderColor}"
+                                        StrokeThickness="1"
+                                        Padding="15">
+                                    <Border.BackgroundColor>
+                                        <Binding Source="{x:Reference yapilacaklarPage}" Path="BindingContext.CardBackgroundColor"/>
+                                    </Border.BackgroundColor>
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="12" />
+                                    </Border.StrokeShape>
+
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <CheckBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                                                  IsChecked="{Binding Yapildi}"
+                                                  Color="#6A1B9A"
+                                                  VerticalOptions="Start"
+                                                  Margin="0,5,10,0"
+                                                  CheckedChanged="OnYapildiChanged" />
+
+                                        <!-- Görev başlığı -->
+                                        <Label Grid.Row="0" Grid.Column="1"
+                                               Text="{Binding Baslik}" 
+                                               FontSize="16" 
+                                               FontAttributes="Bold">
+                                            <Label.TextColor>
+                                                <Binding Source="{x:Reference yapilacaklarPage}" Path="BindingContext.TextColor"/>
+                                            </Label.TextColor>
+                                        </Label>
+
+                                        <!--detaylar -->
+                                        <Label Grid.Row="1" Grid.Column="1"
+                                               Text="{Binding Detay}" 
+                                               FontSize="14" 
+                                               LineBreakMode="WordWrap"
+                                               Margin="0,2,0,5">
+                                            <Label.TextColor>
+                                                <Binding Source="{x:Reference yapilacaklarPage}" Path="BindingContext.SecondaryTextColor"/>
+                                            </Label.TextColor>
+                                        </Label>
+
+                                        <!-- tarih ve saat -->
+                                        <StackLayout Grid.Row="2" Grid.Column="1" 
+                                                     Orientation="Horizontal"
+                                                     Margin="0,0,0,10">
+                                            <Label Text="📅" FontSize="12" />
+                                            <Label Text="{Binding Tarih}" 
+                                                   FontSize="12">
+                                                <Label.TextColor>
+                                                    <Binding Source="{x:Reference yapilacaklarPage}" Path="BindingContext.SecondaryTextColor"/>
+                                                </Label.TextColor>
+                                            </Label>
+                                            <Label Text="🕒" FontSize="12" Margin="10,0,0,0" />
+                                            <Label Text="{Binding Saat}" 
+                                                   FontSize="12">
+                                                <Label.TextColor>
+                                                    <Binding Source="{x:Reference yapilacaklarPage}" Path="BindingContext.SecondaryTextColor"/>
+                                                </Label.TextColor>
+                                            </Label>
+                                        </StackLayout>
+
+                                        <StackLayout Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="3"
+                                                     Orientation="Vertical"
+                                                     VerticalOptions="Center"
+                                                     Spacing="5">
+
+                                            <Button Text="✏️"
+                                                    FontSize="16"
+                                                    BackgroundColor="#FF9800"
+                                                    TextColor="White"
+                                                    WidthRequest="40"
+                                                    HeightRequest="35"
+                                                    CornerRadius="6"
+                                                    Clicked="OnGorevDuzenleClicked"
+                                                    CommandParameter="{Binding}" />
+
+                                            <Button Text="🗑️"
+                                                    FontSize="16"
+                                                    BackgroundColor="#F44336"
+                                                    TextColor="White"
+                                                    WidthRequest="40"
+                                                    HeightRequest="35"
+                                                    CornerRadius="6"
+                                                    Clicked="OnGorevSilClicked"
+                                                    CommandParameter="{Binding}" />
+                                        </StackLayout>
+
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <StackLayout x:Name="emptyStateLayout" 
+                             IsVisible="False"
+                             VerticalOptions="CenterAndExpand"
+                             Padding="40">
+                    <Label Text="📝" 
+                           FontSize="48" 
+                           HorizontalOptions="Center"
+                           TextColor="#DDD" />
+                    <Label Text="Henüz görev eklenmemiş" 
+                           FontSize="16" 
+                           HorizontalOptions="Center"
+                           Margin="0,10,0,0">
+                        <Label.TextColor>
+                            <Binding Source="{x:Reference yapilacaklarPage}" Path="BindingContext.SecondaryTextColor"/>
+                        </Label.TextColor>
+                    </Label>
+                    <Label Text="Yeni görev eklemek için + butonuna tıklayın" 
+                           FontSize="14" 
+                           HorizontalOptions="Center"
+                           Margin="0,5,0,0">
+                        <Label.TextColor>
+                            <Binding Source="{x:Reference yapilacaklarPage}" Path="BindingContext.SecondaryTextColor"/>
+                        </Label.TextColor>
+                    </Label>
+                </StackLayout>
+
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

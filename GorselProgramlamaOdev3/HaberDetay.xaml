@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="GorselProgramlamaOdev3.HaberDetay"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Haber Detayı"
+             x:Name="haberDetayPage">
+    <ContentPage.BackgroundColor>
+        <Binding Source="{x:Reference haberDetayPage}" Path="BindingContext.PageBackgroundColor"/>
+    </ContentPage.BackgroundColor>
+
+    <ScrollView>
+        <StackLayout Padding="0" Spacing="0">
+
+            <!-- Haber Görseli -->
+            <Grid>
+                <Grid.BackgroundColor>
+                    <Binding Source="{x:Reference haberDetayPage}" Path="BindingContext.ContentBackgroundColor"/>
+                </Grid.BackgroundColor>
+                <Image Source="{Binding NewsItem.Thumbnail}"
+                       Aspect="AspectFill"
+                       HeightRequest="250"/>
+
+                <BoxView VerticalOptions="End"
+                         HeightRequest="80">
+                    <BoxView.BackgroundColor>
+                        <Binding Source="{x:Reference haberDetayPage}" Path="BindingContext.OverlayColor"/>
+                    </BoxView.BackgroundColor>
+                </BoxView>
+
+                <!-- Kategori -->
+                <StackLayout VerticalOptions="End"
+                           HorizontalOptions="Start"
+                           Margin="15,0,0,15">
+                    <Border BackgroundColor="#E74C3C"
+                            Padding="8,4">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Label Text="{Binding NewsItem.Category}"
+                               TextColor="White"
+                               FontSize="12"
+                               FontAttributes="Bold"/>
+                    </Border>
+                </StackLayout>
+
+                <!-- Paylaş Butonu  -->
+                <Button Text="📤"
+                        BackgroundColor="#3498DB"
+                        TextColor="White"
+                        FontSize="18"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        HorizontalOptions="End"
+                        VerticalOptions="Start"
+                        Margin="15"
+                        Clicked="OnShareClicked">
+                    <Button.Shadow>
+                        <Shadow Brush="Black" Opacity="0.3" Radius="10" Offset="2,2"/>
+                    </Button.Shadow>
+                </Button>
+            </Grid>
+
+            <!-- Haber İçeriği -->
+            <StackLayout Padding="20" 
+                       Spacing="15">
+                <StackLayout.BackgroundColor>
+                    <Binding Source="{x:Reference haberDetayPage}" Path="BindingContext.ContentBackgroundColor"/>
+                </StackLayout.BackgroundColor>
+
+                <!-- Başlık -->
+                <Label Text="{Binding NewsItem.Title}"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       LineBreakMode="WordWrap">
+                    <Label.TextColor>
+                        <Binding Source="{x:Reference haberDetayPage}" Path="BindingContext.TitleTextColor"/>
+                    </Label.TextColor>
+                </Label>
+
+                <!-- Tarih ve Kaynak -->
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Border Padding="8,4">
+                        <Border.BackgroundColor>
+                            <Binding Source="{x:Reference haberDetayPage}" Path="BindingContext.MetaBackgroundColor"/>
+                        </Border.BackgroundColor>
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <Label Text="{Binding NewsItem.ParsedDate, StringFormat='📅 {0:dd MMMM yyyy}'}"
+                               FontSize="12">
+                            <Label.TextColor>
+                                <Binding Source="{x:Reference haberDetayPage}" Path="BindingContext.MetaTextColor"/>
+                            </Label.TextColor>
+                        </Label>
+                    </Border>
+
+                    <Border Padding="8,4">
+                        <Border.BackgroundColor>
+                            <Binding Source="{x:Reference haberDetayPage}" Path="BindingContext.MetaBackgroundColor"/>
+                        </Border.BackgroundColor>
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <Label Text="{Binding NewsItem.ParsedDate, StringFormat='🕒 {0:HH:mm}'}"
+                               FontSize="12">
+                            <Label.TextColor>
+                                <Binding Source="{x:Reference haberDetayPage}" Path="BindingContext.MetaTextColor"/>
+                            </Label.TextColor>
+                        </Label>
+                    </Border>
+                </StackLayout>
+
+                <!-- Açıklama -->
+                <Label Text="{Binding NewsItem.CleanDescription}"
+                       FontSize="16"
+                       LineBreakMode="WordWrap"
+                       LineHeight="1.5">
+                    <Label.TextColor>
+                        <Binding Source="{x:Reference haberDetayPage}" Path="BindingContext.BodyTextColor"/>
+                    </Label.TextColor>
+                </Label>
+
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

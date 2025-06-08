@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="GorselProgramlamaOdev3.Ayarlar"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Ayarlar"
+             x:Name="ayarlarPage">
+
+    <StackLayout Padding="20" Spacing="30">
+        <StackLayout.BackgroundColor>
+            <Binding Source="{x:Reference ayarlarPage}" Path="BindingContext.PageBackgroundColor"/>
+        </StackLayout.BackgroundColor>
+
+        <!-- Başlık -->
+        <Label Text="⚙️ Ayarlar"
+               FontSize="28"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               Margin="0,20,0,0">
+            <Label.TextColor>
+                <Binding Source="{x:Reference ayarlarPage}" Path="BindingContext.TextColor"/>
+            </Label.TextColor>
+        </Label>
+
+        <!-- Koyu Tema Ayarı -->
+        <Border Padding="20"
+                Stroke="{Binding Source={x:Reference ayarlarPage}, Path=BindingContext.CardBorderColor}"
+                StrokeThickness="1">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="15"/>
+            </Border.StrokeShape>
+            <Border.BackgroundColor>
+                <Binding Source="{x:Reference ayarlarPage}" Path="BindingContext.CardBackgroundColor"/>
+            </Border.BackgroundColor>
+
+            <Grid ColumnDefinitions="*,Auto">
+
+                <!-- Koyu Tema Yazısı -->
+                <StackLayout Grid.Column="0" 
+                             Orientation="Horizontal" 
+                             VerticalOptions="Center">
+                    <Label Text="🌙"
+                           FontSize="24"
+                           VerticalOptions="Center"/>
+                    <Label Text="Koyu Tema"
+                           FontSize="18"
+                           VerticalOptions="Center"
+                           Margin="15,0,0,0">
+                        <Label.TextColor>
+                            <Binding Source="{x:Reference ayarlarPage}" Path="BindingContext.TextColor"/>
+                        </Label.TextColor>
+                    </Label>
+                </StackLayout>
+
+                <!-- Switch -->
+                <Switch Grid.Column="1"
+                        x:Name="koyu_tema_switch"
+                        IsToggled="{Binding IsDarkTheme}"
+                        Toggled="OnThemeToggled"
+                        OnColor="#88C0D0"
+                        ThumbColor="White"
+                        VerticalOptions="Center"/>
+            </Grid>
+        </Border>
+
+    </StackLayout>
+</ContentPage>

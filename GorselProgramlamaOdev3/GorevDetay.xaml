@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="GorselProgramlamaOdev3.GorevDetay"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Görev Detay"
+             x:Name="gorevDetayPage">
+
+    <ScrollView>
+        <ScrollView.BackgroundColor>
+            <Binding Source="{x:Reference gorevDetayPage}" Path="BindingContext.PageBackgroundColor"/>
+        </ScrollView.BackgroundColor>
+
+        <StackLayout Padding="20">
+
+            <!-- ilk kısım -->
+            <Border Stroke="{Binding Source={x:Reference gorevDetayPage}, Path=BindingContext.CardBorderColor}"
+                    StrokeThickness="1"
+                    Margin="0,10,0,20"
+                    Padding="20">
+                <Border.BackgroundColor>
+                    <Binding Source="{x:Reference gorevDetayPage}" Path="BindingContext.CardBackgroundColor"/>
+                </Border.BackgroundColor>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+                <Label x:Name="lblBaslik"
+                       Text="Görev ekleme" 
+                       FontSize="24" 
+                       FontAttributes="Bold" 
+                       TextColor="#6A1B9A"
+                       HorizontalOptions="Center" />
+            </Border>
+
+            <!-- Form -->
+            <Border Stroke="{Binding Source={x:Reference gorevDetayPage}, Path=BindingContext.CardBorderColor}"
+                    StrokeThickness="1"
+                    Padding="20">
+                <Border.BackgroundColor>
+                    <Binding Source="{x:Reference gorevDetayPage}" Path="BindingContext.CardBackgroundColor"/>
+                </Border.BackgroundColor>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+                <StackLayout Spacing="15">
+
+                    <!-- Başlık -->
+                    <StackLayout>
+                        <Label Text="Görev ekleme" 
+                               FontSize="16" 
+                               FontAttributes="Bold">
+                            <Label.TextColor>
+                                <Binding Source="{x:Reference gorevDetayPage}" Path="BindingContext.TextColor"/>
+                            </Label.TextColor>
+                        </Label>
+                        <Border Stroke="{Binding Source={x:Reference gorevDetayPage}, Path=BindingContext.CardBorderColor}"
+                                StrokeThickness="1"
+                                Padding="10,5">
+                            <Border.BackgroundColor>
+                                <Binding Source="{x:Reference gorevDetayPage}" Path="BindingContext.EntryBackgroundColor"/>
+                            </Border.BackgroundColor>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="8" />
+                            </Border.StrokeShape>
+                            <Entry x:Name="entryBaslik" 
+                                   Placeholder="Görev başlığını girin"
+                                   BackgroundColor="Transparent"
+                                   PlaceholderColor="Gray">
+                                <Entry.TextColor>
+                                    <Binding Source="{x:Reference gorevDetayPage}" Path="BindingContext.TextColor"/>
+                                </Entry.TextColor>
+                            </Entry>
+                        </Border>
+                    </StackLayout>
+
+                    <!-- Detay -->
+                    <StackLayout>
+                        <Label Text="Detay" 
+                               FontSize="16" 
+                               FontAttributes="Bold">
+                            <Label.TextColor>
+                                <Binding Source="{x:Reference gorevDetayPage}" Path="BindingContext.TextColor"/>
+                            </Label.TextColor>
+                        </Label>
+                        <Border Stroke="{Binding Source={x:Reference gorevDetayPage}, Path=BindingContext.CardBorderColor}"
+                                StrokeThickness="1"
+                                Padding="10,5">
+                            <Border.BackgroundColor>
+                                <Binding Source="{x:Reference gorevDetayPage}" Path="BindingContext.EntryBackgroundColor"/>
+                            </Border.BackgroundColor>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="8" />
+                            </Border.StrokeShape>
+                            <Editor x:Name="editorDetay" 
+                                    Placeholder="detay sayfası"
+                                    HeightRequest="80"
+                                    BackgroundColor="Transparent"
+                                    PlaceholderColor="Gray">
+                                <Editor.TextColor>
+                                    <Binding Source="{x:Reference gorevDetayPage}" Path="BindingContext.TextColor"/>
+                                </Editor.TextColor>
+                            </Editor>
+                        </Border>
+                    </StackLayout>
+
+                    <!-- Tarih -->
+                    <StackLayout>
+                        <Label Text="Tarih" 
+                               FontSize="16" 
+                               FontAttributes="Bold">
+                            <Label.TextColor>
+                                <Binding Source="{x:Reference gorevDetayPage}" Path="BindingContext.TextColor"/>
+                            </Label.TextColor>
+                        </Label>
+                        <Border Stroke="{Binding Source={x:Reference gorevDetayPage}, Path=BindingContext.CardBorderColor}"
+                                StrokeThickness="1"
+                                Padding="10,5">
+                            <Border.BackgroundColor>
+                                <Binding Source="{x:Reference gorevDetayPage}" Path="BindingContext.EntryBackgroundColor"/>
+                            </Border.BackgroundColor>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="8" />
+                            </Border.StrokeShape>
+                            <Entry x:Name="entryTarih" 
+                                   Placeholder="6/7/2023"
+                                   BackgroundColor="Transparent"
+                                   PlaceholderColor="Gray">
+                                <Entry.TextColor>
+                                    <Binding Source="{x:Reference gorevDetayPage}" Path="BindingContext.TextColor"/>
+                                </Entry.TextColor>
+                            </Entry>
+                        </Border>
+                    </StackLayout>
+
+                    <!-- Saat -->
+                    <StackLayout>
+                        <Label Text="Saat" 
+                               FontSize="16" 
+                               FontAttributes="Bold">
+                            <Label.TextColor>
+                                <Binding Source="{x:Reference gorevDetayPage}" Path="BindingContext.TextColor"/>
+                            </Label.TextColor>
+                        </Label>
+                        <Border Stroke="{Binding Source={x:Reference gorevDetayPage}, Path=BindingContext.CardBorderColor}"
+                                StrokeThickness="1"
+                                Padding="10,5">
+                            <Border.BackgroundColor>
+                                <Binding Source="{x:Reference gorevDetayPage}" Path="BindingContext.EntryBackgroundColor"/>
+                            </Border.BackgroundColor>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="8" />
+                            </Border.StrokeShape>
+                            <Entry x:Name="entrySaat" 
+                                   Placeholder="11:40 AM"
+                                   BackgroundColor="Transparent"
+                                   PlaceholderColor="Gray">
+                                <Entry.TextColor>
+                                    <Binding Source="{x:Reference gorevDetayPage}" Path="BindingContext.TextColor"/>
+                                </Entry.TextColor>
+                            </Entry>
+                        </Border>
+                    </StackLayout>
+
+                </StackLayout>
+            </Border>
+
+            <!--butonlar-->
+            <StackLayout Orientation="Horizontal" 
+                         HorizontalOptions="Center"
+                         Spacing="20"
+                         Margin="0,20,0,0">
+
+                <Button x:Name="btnTamam"
+                        Text="Tamam"
+                        BackgroundColor="#6A1B9A"
+                        TextColor="White"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        WidthRequest="120"
+                        HeightRequest="45"
+                        CornerRadius="8"
+                        Clicked="OnTamamClicked" />
+
+                <Button x:Name="btnIptal"
+                        Text="İptal"
+                        BackgroundColor="#757575"
+                        TextColor="White"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        WidthRequest="120"
+                        HeightRequest="45"
+                        CornerRadius="8"
+                        Clicked="OnIptalClicked" />
+
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

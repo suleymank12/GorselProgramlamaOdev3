@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="GorselProgramlamaOdev3.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:GorselProgramlamaOdev3"
+    Shell.FlyoutBehavior="Disabled"
+    Title="GorselProgramlamaOdev3">
+
+    <!-- giriş sayfası -->
+    <ShellContent
+        Title="Giriş"
+        ContentTemplate="{DataTemplate local:LoginPage}"
+        Route="LoginPage"
+        FlyoutItemIsVisible="False" />
+
+    <!-- Ana Menü -->
+    <FlyoutItem Title="Ana Sayfa" Icon="home.png">
+        <ShellContent
+            ContentTemplate="{DataTemplate local:AnaSayfa}"
+            Route="AnaSayfa" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Döviz Kurları" Icon="doviz.png">
+        <ShellContent
+        ContentTemplate="{DataTemplate local:DovizKurlari}"
+        Route="DovizKurlari" />
+    </FlyoutItem>
+
+    
+    <FlyoutItem Title="Haberler" Icon="news.png">
+        <ShellContent
+            ContentTemplate="{DataTemplate local:Haberler}"
+            Route="Haberler" />
+    </FlyoutItem>
+    
+    <FlyoutItem Title="Hava Durumu" Icon="hava.png">
+        <ShellContent
+            ContentTemplate="{DataTemplate local:HavaDurumu}"
+            Route="HavaDurumu" />
+    </FlyoutItem>
+    
+    <FlyoutItem Title="Yapılacaklar" Icon="gorev.png">
+        <ShellContent
+            ContentTemplate="{DataTemplate local:Yapilacaklar}"
+            Route="Yapılacaklar" />
+    </FlyoutItem>
+    
+    <FlyoutItem Title="Ayarlar" Icon="settings.png">
+        <ShellContent
+            ContentTemplate="{DataTemplate local:Ayarlar}"
+            Route="Ayarlar" />
+    </FlyoutItem> 
+
+</Shell>
+

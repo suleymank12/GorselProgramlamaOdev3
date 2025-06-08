@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GorselProgramlamaOdev3.AnaSayfa"
+             Title="Ana Sayfa"
+             x:Name="anaSayfaPage">
+
+    <Grid>
+        <Grid.BackgroundColor>
+            <Binding Source="{x:Reference anaSayfaPage}" Path="BindingContext.PageBackgroundColor"/>
+        </Grid.BackgroundColor>
+
+        <ScrollView>
+            <StackLayout Padding="20" VerticalOptions="CenterAndExpand" Spacing="30">
+
+                <!-- Geniş beyaz kart -->
+                <Border StrokeShape="RoundRectangle 25"
+                        StrokeThickness="2"
+                        Padding="30"
+                        VerticalOptions="CenterAndExpand"
+                        HorizontalOptions="FillAndExpand">
+                    <Border.Stroke>
+                        <Binding Source="{x:Reference anaSayfaPage}" Path="BindingContext.BorderColor"/>
+                    </Border.Stroke>
+                    <Border.BackgroundColor>
+                        <Binding Source="{x:Reference anaSayfaPage}" Path="BindingContext.CardBackgroundColor"/>
+                    </Border.BackgroundColor>
+
+                    <StackLayout Spacing="25" HorizontalOptions="Center" VerticalOptions="Center">
+
+                        <!-- Profil Fotoğrafı -->
+                        <Border StrokeShape="RoundRectangle 100"
+                                WidthRequest="180"
+                                HeightRequest="180"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                StrokeThickness="3">
+                            <Border.Stroke>
+                                <Binding Source="{x:Reference anaSayfaPage}" Path="BindingContext.BorderColor"/>
+                            </Border.Stroke>
+                            <Border.BackgroundColor>
+                                <Binding Source="{x:Reference anaSayfaPage}" Path="BindingContext.PhotoBackgroundColor"/>
+                            </Border.BackgroundColor>
+                            <Image x:Name="imgProfilePhoto" Source="myphoto.jpg" Aspect="AspectFill" />
+                        </Border>
+
+                        <!-- Öğrenci Numarası -->
+                        <Label Text="22010310043"
+                               FontSize="22"
+                               HorizontalOptions="Center">
+                            <Label.TextColor>
+                                <Binding Source="{x:Reference anaSayfaPage}" Path="BindingContext.PrimaryTextColor"/>
+                            </Label.TextColor>
+                        </Label>
+
+                        <!-- İsim -->
+                        <Label x:Name="lblUserName"
+                               Text="Süleyman Karaman"
+                               FontSize="28"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center">
+                            <Label.TextColor>
+                                <Binding Source="{x:Reference anaSayfaPage}" Path="BindingContext.PrimaryTextColor"/>
+                            </Label.TextColor>
+                        </Label>
+
+                        <!-- Okul -->
+                        <Label Text="Bartın Üniversitesi"
+                               FontSize="20"
+                               HorizontalOptions="Center">
+                            <Label.TextColor>
+                                <Binding Source="{x:Reference anaSayfaPage}" Path="BindingContext.SecondaryTextColor"/>
+                            </Label.TextColor>
+                        </Label>
+
+                        <!-- Bölüm -->
+                        <Label Text="Bilgisayar Mühendisliği Bölümü"
+                               FontSize="20"
+                               HorizontalOptions="Center">
+                            <Label.TextColor>
+                                <Binding Source="{x:Reference anaSayfaPage}" Path="BindingContext.SecondaryTextColor"/>
+                            </Label.TextColor>
+                        </Label>
+
+                        <!-- Ödev -->
+                        <Label Text=" GÖRSEL PROGRAMLAMA ÖDEV-3"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center">
+                            <Label.TextColor>
+                                <Binding Source="{x:Reference anaSayfaPage}" Path="BindingContext.AccentTextColor"/>
+                            </Label.TextColor>
+                        </Label>
+
+                    </StackLayout>
+                </Border>
+
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="GorselProgramlamaOdev3.HavaDurumu"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Hava Durumu"
+             x:Name="havaDurumuPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="➕"
+                     Clicked="EkleClicked"
+                     Priority="0"/>
+        <ToolbarItem Text="🔄"
+                     Clicked="YukleClicked"
+                     Priority="1"/>
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <RefreshView x:Name="refreshView" 
+                     RefreshColor="#88C0D0" 
+                     Refreshing="YukleClicked">
+            <RefreshView.BackgroundColor>
+                <Binding Source="{x:Reference havaDurumuPage}" Path="BindingContext.RefreshBackgroundColor"/>
+            </RefreshView.BackgroundColor>
+
+            <ScrollView Padding="15">
+                <StackLayout Spacing="20">
+
+                    <!-- Başlık -->
+                    <Border Stroke="#5E81AC"
+                            StrokeThickness="2"
+                            Padding="20">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="15"/>
+                        </Border.StrokeShape>
+                        <Border.BackgroundColor>
+                            <Binding Source="{x:Reference havaDurumuPage}" Path="BindingContext.HeaderBackgroundColor"/>
+                        </Border.BackgroundColor>
+                        <Label Text="🌤️ Meteoroloji Hava Durumu"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center"/>
+                    </Border>
+
+                    <!-- Şehir Listesi -->
+                    <CollectionView x:Name="listCity"
+                                  BackgroundColor="Transparent">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,15">
+                                    <!-- Ana Kart -->
+                                    <Border Stroke="#D8DEE9"
+                                            StrokeThickness="1"
+                                            Padding="0">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="20"/>
+                                        </Border.StrokeShape>
+                                        <Border.BackgroundColor>
+                                            <Binding Source="{x:Reference havaDurumuPage}" Path="BindingContext.CardBackgroundColor"/>
+                                        </Border.BackgroundColor>
+                                        <Grid RowDefinitions="60,180"
+                                              ColumnDefinitions="*">
+
+                                            <!-- Şehir Başlığı -->
+                                            <Grid Grid.Row="0" 
+                                                  Padding="20,0">
+                                                <Grid.BackgroundColor>
+                                                    <Binding Source="{x:Reference havaDurumuPage}" Path="BindingContext.CardHeaderBackgroundColor"/>
+                                                </Grid.BackgroundColor>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- Şehir Adı -->
+                                                <Label Grid.Column="0"
+                                                       Text="{Binding Name}"
+                                                       FontSize="18"
+                                                       FontAttributes="Bold"
+                                                       TextColor="White"
+                                                       VerticalOptions="Center"/>
+
+                                                <!-- Sil Butonu -->
+                                                <Button Grid.Column="1"
+                                                        Text="🗑️"
+                                                        BackgroundColor="#BF616A"
+                                                        TextColor="White"
+                                                        FontSize="16"
+                                                        WidthRequest="45"
+                                                        HeightRequest="45"
+                                                        CornerRadius="22"
+                                                        CommandParameter="{Binding Name}"
+                                                        Clicked="SilClicked"/>
+                                            </Grid>
+
+                                            <!-- Hava Durumu Alanı -->
+                                            <Border Grid.Row="1"
+                                                    BackgroundColor="White"
+                                                    Stroke="#E0E0E0"
+                                                    StrokeThickness="1"
+                                                    Padding="10"
+                                                    Margin="10">
+                                                <Border.StrokeShape>
+                                                    <RoundRectangle CornerRadius="15"/>
+                                                </Border.StrokeShape>
+                                                <WebView Source="{Binding Source}"
+                                                         BackgroundColor="White"
+                                                         HeightRequest="160"/>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <!-- Boş Durum Mesajı -->
+                    <Border x:Name="emptyFrame"
+                            Stroke="#5E81AC"
+                            StrokeThickness="2"
+                            Padding="30"
+                            IsVisible="False">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="15"/>
+                        </Border.StrokeShape>
+                        <Border.BackgroundColor>
+                            <Binding Source="{x:Reference havaDurumuPage}" Path="BindingContext.EmptyBackgroundColor"/>
+                        </Border.BackgroundColor>
+                        <StackLayout HorizontalOptions="Center">
+                            <Label Text="🏙️"
+                                   FontSize="40"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="Henüz şehir eklenmemiş"
+                                   FontSize="16"
+                                   HorizontalOptions="Center">
+                                <Label.TextColor>
+                                    <Binding Source="{x:Reference havaDurumuPage}" Path="BindingContext.EmptyTextColor"/>
+                                </Label.TextColor>
+                            </Label>
+                            <Label Text="➕ butonuna tıklayarak 81 il'den seçim yapabilirsiniz"
+                                   FontSize="12"
+                                   HorizontalOptions="Center"
+                                   Margin="0,5,0,0">
+                                <Label.TextColor>
+                                    <Binding Source="{x:Reference havaDurumuPage}" Path="BindingContext.EmptySubTextColor"/>
+                                </Label.TextColor>
+                            </Label>
+                        </StackLayout>
+                    </Border>
+
+                </StackLayout>
+            </ScrollView>
+        </RefreshView>
+
+        <!-- yükleme kısmı -->
+        <Border x:Name="loadingFrame"
+                Stroke="#88C0D0"
+                StrokeThickness="2"
+                Opacity="0.9"
+                IsVisible="False"
+                Padding="30"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="15"/>
+            </Border.StrokeShape>
+            <Border.BackgroundColor>
+                <Binding Source="{x:Reference havaDurumuPage}" Path="BindingContext.LoadingBackgroundColor"/>
+            </Border.BackgroundColor>
+            <StackLayout>
+                <ActivityIndicator IsRunning="True"
+                                 Color="#88C0D0"
+                                 WidthRequest="40"
+                                 HeightRequest="40"/>
+                <Label Text="Yükleniyor..."
+                       FontSize="14"
+                       HorizontalOptions="Center"
+                       Margin="0,10,0,0">
+                    <Label.TextColor>
+                        <Binding Source="{x:Reference havaDurumuPage}" Path="BindingContext.LoadingTextColor"/>
+                    </Label.TextColor>
+                </Label>
+            </StackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

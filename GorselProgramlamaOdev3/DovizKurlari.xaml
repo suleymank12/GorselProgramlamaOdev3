@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GorselProgramlamaOdev3.DovizKurlari"
+             Title="Güncel Kurlar"
+             x:Name="dovizKurlariPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Yenile" IconImageSource="refresh.png" Clicked="RefreshClicked" />
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <Grid.BackgroundColor>
+            <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.PageBackgroundColor"/>
+        </Grid.BackgroundColor>
+
+        <ScrollView>
+            <StackLayout Spacing="15" Padding="20">
+
+                
+                <Border StrokeShape="RoundRectangle 15" 
+                        StrokeThickness="2"
+                        Padding="20">
+                    <Border.Stroke>
+                        <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.HeaderBorderColor"/>
+                    </Border.Stroke>
+                    <Border.BackgroundColor>
+                        <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.HeaderBackgroundColor"/>
+                    </Border.BackgroundColor>
+                    <StackLayout Spacing="10">
+                        <Label Text="💱 Güncel Döviz Kurları" 
+                               FontSize="22" 
+                               FontAttributes="Bold" 
+                               HorizontalOptions="Center">
+                            <Label.TextColor>
+                                <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.HeaderTextColor"/>
+                            </Label.TextColor>
+                        </Label>
+                        <Label x:Name="lblLastUpdate" 
+                               Text="Son Güncelleme: --" 
+                               FontSize="12" 
+                               HorizontalOptions="Center">
+                            <Label.TextColor>
+                                <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.SubTextColor"/>
+                            </Label.TextColor>
+                        </Label>
+                    </StackLayout>
+                </Border>
+
+                <!-- Para Birimleri Listesi -->
+                <CollectionView x:Name="currencyCollectionView" 
+                                BackgroundColor="Transparent"
+                                SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border StrokeShape="RoundRectangle 12" 
+                                    Margin="0,5" 
+                                    Padding="15"
+                                    StrokeThickness="1">
+                                <Border.Stroke>
+                                    <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.CardBorderColor"/>
+                                </Border.Stroke>
+                                <Border.BackgroundColor>
+                                    <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.CardBackgroundColor"/>
+                                </Border.BackgroundColor>
+                                <Grid ColumnDefinitions="50,*,80,80,60,30" ColumnSpacing="10">
+
+                                    <!-- Para birim ikonları -->
+                                    <Border Grid.Column="0" 
+                                            BackgroundColor="{Binding Color}" 
+                                            StrokeShape="RoundRectangle 8" 
+                                            WidthRequest="40" 
+                                            HeightRequest="40">
+                                        <Label Text="{Binding Symbol}" 
+                                               FontSize="18" 
+                                               VerticalOptions="Center" 
+                                               HorizontalOptions="Center" 
+                                               TextColor="White" 
+                                               FontAttributes="Bold" />
+                                    </Border>
+
+                                    <!-- para birimi isimleri -->
+                                    <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                        <Label Text="{Binding Name}" 
+                                               FontSize="16" 
+                                               FontAttributes="Bold">
+                                            <Label.TextColor>
+                                                <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.PrimaryTextColor"/>
+                                            </Label.TextColor>
+                                        </Label>
+                                        <Label Text="{Binding Code}" 
+                                               FontSize="12">
+                                            <Label.TextColor>
+                                                <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.SecondaryTextColor"/>
+                                            </Label.TextColor>
+                                        </Label>
+                                    </StackLayout>
+
+                                    <!-- alış oran -->
+                                    <StackLayout Grid.Column="2" VerticalOptions="Center">
+                                        <Label Text="Alış" 
+                                               FontSize="11" 
+                                               HorizontalOptions="Center">
+                                            <Label.TextColor>
+                                                <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.SecondaryTextColor"/>
+                                            </Label.TextColor>
+                                        </Label>
+                                        <Label Text="{Binding BuyRate, StringFormat='{0:F4}'}" 
+                                               FontSize="14" 
+                                               FontAttributes="Bold" 
+                                               HorizontalOptions="Center">
+                                            <Label.TextColor>
+                                                <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.PrimaryTextColor"/>
+                                            </Label.TextColor>
+                                        </Label>
+                                    </StackLayout>
+
+                                    <!-- satış oran -->
+                                    <StackLayout Grid.Column="3" VerticalOptions="Center">
+                                        <Label Text="Satış" 
+                                               FontSize="11" 
+                                               HorizontalOptions="Center">
+                                            <Label.TextColor>
+                                                <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.SecondaryTextColor"/>
+                                            </Label.TextColor>
+                                        </Label>
+                                        <Label Text="{Binding SellRate, StringFormat='{0:F4}'}" 
+                                               FontSize="14" 
+                                               FontAttributes="Bold" 
+                                               HorizontalOptions="Center">
+                                            <Label.TextColor>
+                                                <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.PrimaryTextColor"/>
+                                            </Label.TextColor>
+                                        </Label>
+                                    </StackLayout>
+
+                                    <!-- yüzde kısmı -->
+                                    <StackLayout Grid.Column="4" VerticalOptions="Center">
+                                        <Label Text="{Binding ChangePercent, StringFormat='{0:F2}%'}" 
+                                               FontSize="12" 
+                                               FontAttributes="Bold" 
+                                               TextColor="{Binding ChangeColor}" 
+                                               HorizontalOptions="Center" />
+                                    </StackLayout>
+                                   
+                                    <Label Grid.Column="5" 
+                                           Text="{Binding TrendArrow}" 
+                                           FontSize="16" 
+                                           TextColor="{Binding ChangeColor}"
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="Center" />
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </StackLayout>
+        </ScrollView>
+
+        <!-- yükleme -->
+        <Grid x:Name="loadingOverlay" IsVisible="False">
+            <Grid.BackgroundColor>
+                <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.OverlayBackgroundColor"/>
+            </Grid.BackgroundColor>
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="15">
+                <ActivityIndicator IsRunning="True">
+                    <ActivityIndicator.Color>
+                        <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.LoadingIndicatorColor"/>
+                    </ActivityIndicator.Color>
+                </ActivityIndicator>
+                <Label Text="Kurlar yükleniyor..." FontSize="16">
+                    <Label.TextColor>
+                        <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.LoadingTextColor"/>
+                    </Label.TextColor>
+                </Label>
+            </StackLayout>
+        </Grid>
+
+        <!-- Hata durumları -->
+        <Grid x:Name="errorOverlay" IsVisible="False">
+            <Grid.BackgroundColor>
+                <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.OverlayBackgroundColor"/>
+            </Grid.BackgroundColor>
+            <Border StrokeShape="RoundRectangle 15" 
+                    Margin="40" 
+                    Padding="25"
+                    StrokeThickness="1">
+                <Border.Stroke>
+                    <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.CardBorderColor"/>
+                </Border.Stroke>
+                <Border.BackgroundColor>
+                    <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.CardBackgroundColor"/>
+                </Border.BackgroundColor>
+                <StackLayout Spacing="15" HorizontalOptions="Center">
+                    <Label Text="⚠️" FontSize="32" HorizontalOptions="Center" />
+                    <Label Text="Kurlar yüklenirken hata oluştu" 
+                           FontSize="16" 
+                           FontAttributes="Bold" 
+                           HorizontalOptions="Center">
+                        <Label.TextColor>
+                            <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.ErrorTextColor"/>
+                        </Label.TextColor>
+                    </Label>
+                    <Label x:Name="lblErrorMessage" 
+                           Text="" 
+                           FontSize="14" 
+                           HorizontalOptions="Center">
+                        <Label.TextColor>
+                            <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.SecondaryTextColor"/>
+                        </Label.TextColor>
+                    </Label>
+                    <Button Text="Tekrar Dene" 
+                            CornerRadius="8" 
+                            Clicked="RefreshClicked">
+                        <Button.BackgroundColor>
+                            <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.ButtonBackgroundColor"/>
+                        </Button.BackgroundColor>
+                        <Button.TextColor>
+                            <Binding Source="{x:Reference dovizKurlariPage}" Path="BindingContext.ButtonTextColor"/>
+                        </Button.TextColor>
+                    </Button>
+                </StackLayout>
+            </Border>
+        </Grid>
+
+    </Grid>
+</ContentPage>

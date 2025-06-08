@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="GorselProgramlamaOdev3.Haberler"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Haberler"
+             x:Name="haberlerPage">
+
+    <Grid>
+        <Grid.BackgroundColor>
+            <Binding Source="{x:Reference haberlerPage}" Path="BindingContext.PageBackgroundColor"/>
+        </Grid.BackgroundColor>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Kategori Seçimi -->
+        <Border Grid.Row="0" 
+                StrokeThickness="1"
+                Padding="10" 
+                Margin="10,5">
+            <Border.Stroke>
+                <Binding Source="{x:Reference haberlerPage}" Path="BindingContext.CategoryTextColor"/>
+            </Border.Stroke>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="8"/>
+            </Border.StrokeShape>
+            <Border.BackgroundColor>
+                <Binding Source="{x:Reference haberlerPage}" Path="BindingContext.CardBackgroundColor"/>
+            </Border.BackgroundColor>
+            <CollectionView x:Name="CategoriesCollectionView"
+                          ItemsSource="{Binding Categories}"
+                          SelectionMode="Single"
+                          SelectedItem="{Binding SelectedCategoryItem}"
+                          SelectionChanged="OnCategorySelectionChanged">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="15,8"
+                                StrokeThickness="1">
+                            <Border.Stroke>
+                                <Binding Source="{x:Reference haberlerPage}" Path="BindingContext.CategoryTextColor"/>
+                            </Border.Stroke>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="20"/>
+                            </Border.StrokeShape>
+                            <Border.BackgroundColor>
+                                <Binding Source="{x:Reference haberlerPage}" Path="BindingContext.CategoryBackgroundColor"/>
+                            </Border.BackgroundColor>
+                            <Label Text="{Binding}"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center">
+                                <Label.TextColor>
+                                    <Binding Source="{x:Reference haberlerPage}" Path="BindingContext.CategoryTextColor"/>
+                                </Label.TextColor>
+                            </Label>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
+
+        <!-- Haber Listesi -->
+        <RefreshView Grid.Row="1" 
+                    IsRefreshing="{Binding IsLoading}"
+                    Command="{Binding RefreshCommand}">
+            <CollectionView x:Name="NewsCollectionView"
+                          ItemsSource="{Binding News}"
+                          SelectionMode="Single"
+                          SelectionChanged="OnNewsSelectionChanged">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10,5">
+                            <Border StrokeThickness="1"
+                                    Padding="0">
+                                <Border.Stroke>
+                                    <Binding Source="{x:Reference haberlerPage}" Path="BindingContext.CategoryTextColor"/>
+                                </Border.Stroke>
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12"/>
+                                </Border.StrokeShape>
+                                <Border.BackgroundColor>
+                                    <Binding Source="{x:Reference haberlerPage}" Path="BindingContext.NewsCardBackgroundColor"/>
+                                </Border.BackgroundColor>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="200"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Haber Görseli -->
+                                    <Grid Grid.Row="0">
+                                        <Border>
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="12,12,0,0"/>
+                                            </Border.StrokeShape>
+                                            <Image Source="{Binding Thumbnail}"
+                                                   Aspect="AspectFill"
+                                                   HeightRequest="200"/>
+                                        </Border>
+
+                                        <!-- Kategori-->
+                                        <Border BackgroundColor="#E74C3C"
+                                                Padding="8,4"
+                                                HorizontalOptions="Start"
+                                                VerticalOptions="Start"
+                                                Margin="10">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="10"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="{Binding Category}"
+                                                   TextColor="White"
+                                                   FontSize="12"
+                                                   FontAttributes="Bold"/>
+                                        </Border>
+                                    </Grid>
+
+                                    <!-- Haber İçeriği -->
+                                    <StackLayout Grid.Row="1" 
+                                               Padding="15,10">
+                                        <Label Text="{Binding Title}"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               LineBreakMode="WordWrap"
+                                               MaxLines="2">
+                                            <Label.TextColor>
+                                                <Binding Source="{x:Reference haberlerPage}" Path="BindingContext.TitleTextColor"/>
+                                            </Label.TextColor>
+                                        </Label>
+
+                                        <Label Text="{Binding ShortDescription}"
+                                               FontSize="14"
+                                               LineBreakMode="WordWrap"
+                                               MaxLines="3"
+                                               Margin="0,5,0,0">
+                                            <Label.TextColor>
+                                                <Binding Source="{x:Reference haberlerPage}" Path="BindingContext.DescriptionTextColor"/>
+                                            </Label.TextColor>
+                                        </Label>
+
+                                        <Grid Margin="0,10,0,5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Grid.Column="0"
+                                                   Text="{Binding ParsedDate, StringFormat='{0:dd MMM yyyy HH:mm}'}"
+                                                   FontSize="12"
+                                                   VerticalOptions="Center">
+                                                <Label.TextColor>
+                                                    <Binding Source="{x:Reference haberlerPage}" Path="BindingContext.DateTextColor"/>
+                                                </Label.TextColor>
+                                            </Label>
+
+                                            <Button Grid.Column="1"
+                                                    Text="Devamını Oku"
+                                                    BackgroundColor="#3498DB"
+                                                    TextColor="White"
+                                                    FontSize="12"
+                                                    Padding="12,6"
+                                                    Clicked="OnNewsDetailClicked"/>
+                                        </Grid>
+                                    </StackLayout>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <!-- yükleme göstergeci -->
+        <ActivityIndicator Grid.Row="1"
+                         IsVisible="{Binding IsLoading}"
+                         IsRunning="{Binding IsLoading}"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center">
+            <ActivityIndicator.Color>
+                <Binding Source="{x:Reference haberlerPage}" Path="BindingContext.TitleTextColor"/>
+            </ActivityIndicator.Color>
+        </ActivityIndicator>
+    </Grid>
+</ContentPage>

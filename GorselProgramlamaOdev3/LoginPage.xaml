@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GorselProgramlamaOdev3.LoginPage"
+             Title="Giriş Yap - Kayıt Ol Sayfası"
+             Shell.NavBarIsVisible="False">
+
+    <Grid BackgroundColor="#F0F2F5">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#667eea" Offset="0.0" />
+                <GradientStop Color="#764ba2" Offset="1.0" />
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <ScrollView VerticalOptions="Center">
+            <StackLayout Spacing="20" Padding="40,20">
+
+                <!-- giriş yap /kayıt ol kısmı -->
+                <Border BackgroundColor="White" StrokeShape="RoundRectangle 20" 
+                        Shadow="{Shadow Brush=Black, Opacity=0.1, Radius=10, Offset='0,5'}"
+                        Padding="30,40">
+
+                    <Grid>
+                        <!--giriş kısmı-->
+                        <StackLayout x:Name="loginStack" Spacing="20" IsVisible="True">
+                            <Label Text="Oturum Aç" FontSize="28" FontAttributes="Bold" 
+                                   TextColor="#2C3E50" HorizontalOptions="Center" />
+
+                            <StackLayout Spacing="15">
+                                <Border StrokeShape="RoundRectangle 12" Stroke="#E1E8ED" StrokeThickness="1">
+                                    <Entry x:Name="txtEmail" Placeholder="E-posta Adresiniz" 
+                                           Keyboard="Email" BackgroundColor="Transparent" 
+                                           TextColor="#2C3E50" PlaceholderColor="#95A5A6" />
+                                </Border>
+
+                                <Border StrokeShape="RoundRectangle 12" Stroke="#E1E8ED" StrokeThickness="1">
+                                    <Entry x:Name="txtPassword" Placeholder="Şifreniz" 
+                                           IsPassword="True" BackgroundColor="Transparent"
+                                           TextColor="#2C3E50" PlaceholderColor="#95A5A6" />
+                                </Border>
+                            </StackLayout>
+
+                            <Button x:Name="btnLogin" Text="Giriş Yap" 
+                                    BackgroundColor="#3498DB" TextColor="White" FontSize="16"
+                                    HeightRequest="50" CornerRadius="12" FontAttributes="Bold"
+                                    Clicked="LoginClicked" />
+
+                            <Button Text="Hesabım Yok" BackgroundColor="Transparent" 
+                                    TextColor="#3498DB" FontSize="14" FontAttributes="Bold"
+                                    Clicked="ShowRegisterForm" />
+                        </StackLayout>
+
+                        <!-- kayıt kısmı -->
+                        <StackLayout x:Name="registerStack" Spacing="20" IsVisible="False">
+                            <Label Text="Kayıt Ol" FontSize="28" FontAttributes="Bold" 
+                                   TextColor="#2C3E50" HorizontalOptions="Center" />
+
+                            <StackLayout Spacing="15">
+                                <Border StrokeShape="RoundRectangle 12" Stroke="#E1E8ED" StrokeThickness="1">
+                                    <Entry x:Name="txtName" Placeholder="Adınız Soyadınız" 
+                                           BackgroundColor="Transparent" TextColor="#2C3E50" 
+                                           PlaceholderColor="#95A5A6" />
+                                </Border>
+
+                                <Border StrokeShape="RoundRectangle 12" Stroke="#E1E8ED" StrokeThickness="1">
+                                    <Entry x:Name="txtRegisterEmail" Placeholder="E-posta Adresiniz" 
+                                           Keyboard="Email" BackgroundColor="Transparent" 
+                                           TextColor="#2C3E50" PlaceholderColor="#95A5A6" />
+                                </Border>
+
+                                <Border StrokeShape="RoundRectangle 12" Stroke="#E1E8ED" StrokeThickness="1">
+                                    <Entry x:Name="txtRegisterPassword" Placeholder="Şifreniz" 
+                                           IsPassword="True" BackgroundColor="Transparent"
+                                           TextColor="#2C3E50" PlaceholderColor="#95A5A6" />
+                                </Border>
+                            </StackLayout>
+
+                            <Button x:Name="btnRegister" Text="Kayıt Ol" 
+                                    BackgroundColor="#27AE60" TextColor="White" FontSize="16"
+                                    HeightRequest="50" CornerRadius="12" FontAttributes="Bold"
+                                    Clicked="RegisterClicked" />
+
+                            <Button Text="Zaten Hesabım Var" BackgroundColor="Transparent" 
+                                    TextColor="#27AE60" FontSize="14" FontAttributes="Bold"
+                                    Clicked="ShowLoginForm" />
+                        </StackLayout>
+                    </Grid>
+
+                </Border>
+
+            </StackLayout>
+        </ScrollView>
+
+        <!-- yükleme -->
+        <Grid x:Name="loadingOverlay" BackgroundColor="#80000000" IsVisible="False">
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="15">
+                <ActivityIndicator IsRunning="True" Color="White" />
+                <Label Text="İşlem yapılıyor..." TextColor="White" FontSize="16" />
+            </StackLayout>
+        </Grid>
+
+    </Grid>
+</ContentPage>
